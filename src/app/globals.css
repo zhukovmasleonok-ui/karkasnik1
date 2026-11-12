@@ -1,0 +1,253 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "../../public/fonts/fonts.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ================= Дизайн-система «Строят Крымчане» =================
+   База: тёплая светлая «бумага». Акцент: глубокий лесной зелёный
+   (фирменный цвет компании), поддержан бронзово-древесными оттенками.
+===================================================================== */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-display);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  /* Брендовые токены */
+  --color-pine: var(--pine);
+  --color-pine-deep: var(--pine-deep);
+  --color-pine-ink: var(--pine-ink);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-oak: var(--oak);
+  --color-oak-soft: var(--oak-soft);
+  --color-graphite: var(--graphite);
+  --color-graphite-soft: var(--graphite-soft);
+  --color-line: var(--line);
+  --color-night: var(--night);
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* Типографика (локальные шрифты с кириллицей) */
+  --font-display: "Playfair Display", "Times New Roman", serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  /* Бренд */
+  --pine: #1e5128;        /* фирменный зелёный (шапка/логотип) */
+  --pine-deep: #173f1f;   /* тёмный зелёный */
+  --pine-ink: #0f2a15;    /* почти чёрный зелёный (футер) */
+  --paper: #f7f5f0;       /* тёплая светлая база */
+  --paper-2: #efece4;     /* чуть темнее для плашек */
+  --oak: #a97f4f;         /* дуб/бронза — детали */
+  --oak-soft: #e5d9c6;    /* светлый дуб — плашки */
+  --graphite: #1c1b17;    /* основной текст */
+  --graphite-soft: #6d6a61; /* вторичный текст */
+  --line: #e2ddd2;        /* hairline-разделители */
+  --night: #102012;       /* тёмные секции */
+
+  /* shadcn-переменные */
+  --background: #f7f5f0;
+  --foreground: #1c1b17;
+  --card: #fffdf9;
+  --card-foreground: #1c1b17;
+  --popover: #fffdf9;
+  --popover-foreground: #1c1b17;
+  --primary: #1e5128;
+  --primary-foreground: #f7f5f0;
+  --secondary: #efece4;
+  --secondary-foreground: #1c1b17;
+  --muted: #efece4;
+  --muted-foreground: #6d6a61;
+  --accent: #e5d9c6;
+  --accent-foreground: #173f1f;
+  --destructive: #a13a2c;
+  --border: #e2ddd2;
+  --input: #e2ddd2;
+  --ring: #1e5128;
+}
+
+.dark {
+  --background: #102012;
+  --foreground: #f7f5f0;
+  --card: #16301c;
+  --card-foreground: #f7f5f0;
+  --popover: #16301c;
+  --popover-foreground: #f7f5f0;
+  --primary: #7fb98a;
+  --primary-foreground: #0f2a15;
+  --secondary: #16301c;
+  --secondary-foreground: #f7f5f0;
+  --muted: #16301c;
+  --muted-foreground: #a9b3aa;
+  --accent: #1e4128;
+  --accent-foreground: #f7f5f0;
+  --destructive: #e07a6b;
+  --border: #24432b;
+  --input: #24432b;
+  --ring: #7fb98a;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    font-feature-settings: "ss01" on;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--pine);
+    color: var(--paper);
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+  /* Доступные фокус-состояния */
+  :focus-visible {
+    outline: 2px solid var(--pine);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  img {
+    @apply select-none;
+  }
+}
+
+@layer utilities {
+  .container-x {
+    @apply mx-auto w-full max-w-[1240px] px-5 sm:px-8;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  /* Метка демо-данных */
+  .demo-chip {
+    @apply inline-flex items-center rounded-full border border-oak/40 bg-oak-soft/60 px-2 py-[1px] text-[10px] font-semibold uppercase tracking-[0.12em] text-[#7a5a33];
+  }
+  /* Editorial-цифры этапов */
+  .hairline {
+    @apply border-line;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ---------------- Анимации: сдержанные fade/slide ---------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.hero-img {
+  animation: hero-zoom 2.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 36s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-img,
+  .marquee-track {
+    animation: none !important;
+  }
+}
+
+/* Чуть более выразительный скроллбар для длинных списков */
+.scroll-thin::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 3px;
+}
